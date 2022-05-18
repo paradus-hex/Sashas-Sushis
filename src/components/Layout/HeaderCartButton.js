@@ -8,14 +8,14 @@ const HeaderCartButton = (props) => {
   const cartCtx = useContext(CartContext);
   const [btnIsBumped, setbtnIsBumped] = useState(false);
   const { items } = cartCtx;
-  const numberofCartItems = cartCtx.items.reduce((curSum, item) => {
+  const numberofCartItems = items.reduce((curSum, item) => {
     return curSum + item.amount;
   }, 0);
 
   const btnClasses = `${classes.button} ${btnIsBumped ? classes.bump : ""} `;
 
   useEffect(() => {
-    if (cartCtx.items.length === 0) {
+    if (items.length === 0) {
       return;
     }
     setbtnIsBumped(true);
@@ -27,7 +27,7 @@ const HeaderCartButton = (props) => {
     return () => {
       clearTimeout(timer);
     };
-  }, [cartCtx.items]);
+  }, [items]);
 
   return (
     <button className={btnClasses} onClick={props.onClick}>
